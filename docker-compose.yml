@@ -1,0 +1,13 @@
+services:
+  app:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - RESULTS_DIR=/app/results
+    volumes:
+      - results:/app/results
+    restart: unless-stopped
+
+volumes:
+  results:

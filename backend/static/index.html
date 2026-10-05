@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HDR 曝光包围去重影合成台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>HDR 曝光包围去重影合成台</h1>
+    <p>上传 3～7 张同场景、同尺寸、固定光圈 / ISO / 白平衡的 JPEG 包围曝光照片，
+       填写每张的快门时间并选定参照帧，即可合成无重影的 HDR 成片。</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <label class="pick">
+        选择图片（3～7 张 JPEG）
+        <input id="files" type="file" accept="image/jpeg,.jpg,.jpeg" multiple>
+      </label>
+      <p id="countHint" class="hint"></p>
+      <div id="fileList"></div>
+      <button id="go" disabled>开始合成</button>
+      <span id="busy" class="hint" hidden>正在合成，请稍候…</span>
+      <div id="err" class="err" hidden></div>
+    </section>
+
+    <section id="results" class="card" hidden>
+      <h2>参照帧 ↔ 合成结果 对比</h2>
+      <p class="hint">拖动滑块对比：左侧为参照帧，右侧为合成结果。</p>
+      <div class="compare" id="compare">
+        <img id="imgResult" alt="合成结果">
+        <div class="top" id="compareTop"><img id="imgRef" alt="参照帧"></div>
+        <span class="tag left">参照帧</span>
+        <span class="tag right">合成结果</span>
+        <input id="slider" type="range" min="0" max="1000" value="500" aria-label="对比滑块">
+      </div>
+
+      <div class="downloads">
+        <a id="dlResult" class="btn" download="hdr_result.png">⬇ 下载成片 PNG</a>
+        <a id="dlMask" class="btn" download="uncertainty_mask.png">⬇ 下载不确定遮罩</a>
+      </div>
+
+      <h3>不确定区域遮罩（白色 = 不确定）</h3>
+      <img id="imgMask" class="mask" alt="不确定区域遮罩">
+
+      <h3>统计信息</h3>
+      <pre id="stats"></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
